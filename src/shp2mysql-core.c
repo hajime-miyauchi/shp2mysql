@@ -230,7 +230,7 @@ escape_insert_string(char *str)
 
 /**
  * @brief Generate an allocated geometry string for shapefile object obj using the state parameters
- * if "force_multi" is true, single points will instead be created as multipoints with a single vertice.
+ * if "force_multi" is true, single points will instead beated as multipoints with a single vertice.
  */
 int
 GeneratePointGeometry(SHPLOADERSTATE *state, SHPObject *obj, char **geometry, int force_multi)
@@ -1278,7 +1278,6 @@ ShpLoaderOpenShape(SHPLOADERSTATE *state)
 	return ret;
 }
 
-
 /* Return a pointer to an allocated string containing the header for the specified loader state */
 int
 ShpLoaderGetSQLHeader(SHPLOADERSTATE *state, char **strheader)
@@ -1889,6 +1888,8 @@ ShpLoaderGetSQLFooter(SHPLOADERSTATE *state, char **strfooter)
 	return SHPLOADEROK;
 }
 
+#endif
+
 
 void
 ShpLoaderDestroy(SHPLOADERSTATE *state)
@@ -1931,5 +1932,3 @@ ShpLoaderDestroy(SHPLOADERSTATE *state)
 		free(state);
 	}
 }
-
-#endif

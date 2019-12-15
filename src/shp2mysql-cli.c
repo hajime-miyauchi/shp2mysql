@@ -15,7 +15,9 @@
 
 #include "shp2mysql-core.h"
 
+#ifndef SRID_UNKNOWN
 #define SRID_UNKNOWN 0
+#endif
 
 static void
 usage()
@@ -448,6 +450,7 @@ main (int argc, char **argv)
 	free(footer);
 
 
+#endif
 	/* Free the state object */
 	ShpLoaderDestroy(state);
 
@@ -456,7 +459,6 @@ main (int argc, char **argv)
 		free(config->schema);
 	if (config->table)
 		free(config->table);
-#endif
 
 	free(config);
 
