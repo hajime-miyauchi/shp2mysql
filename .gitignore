@@ -13,3 +13,10 @@ build-aux/
 configure
 config.log
 .DS_Store
+autoscan.log
+configure.scan
+config.status
+install-sh
+liblwgeom/cunit/Makefile
+liblwgeom/Makefile
+src/Makefile

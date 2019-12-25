@@ -811,53 +811,11 @@ AC_ARG_WITH([gettext],
 LDFLAGS_SAVE="$LDFLAGS"
 CFLAGS_SAVE="$CFLAGS"
 
-if test "x$GETTEXT_PATH" != "xno"; then
-	dnl If user has specified a custom gettext installation path, use it.
-	if test "x$GETTEXT_PATH" != "xyes"; then
-		AC_MSG_RESULT([checking user-specified gettext location: $GETTEXT_PATH])
-		GETTEXT_CFLAGS="-I$GETTEXT_PATH/include"
-		GETTEXT_LDFLAGS="-L$GETTEXT_PATH/lib"
-		LDFLAGS="$GETTEXT_LDFLAGS $LDFLAGS"
-		CFLAGS="$GETTEXT_CFLAGS $CFLAGS"
-	fi
-
-	AM_GNU_GETTEXT([external], [], [])
-
-	if test "x$LIBINTL" = "x"; then
-		USE_NLS=no
-	fi
-fi
-
 AC_SUBST([GETTEXT_CFLAGS])
 AC_SUBST([GETTEXT_LDFLAGS])
 
 LDFLAGS="$LDFLAGS_SAVE"
 CFLAGS="$CFLAGS_SAVE"
-
-dnl ===========================================================================
-dnl Detect the version of PROJ.4 installed
-dnl ===========================================================================
-
-AC_ARG_WITH([projdir],
-	[AS_HELP_STRING([--with-projdir=PATH], [specify the PROJ.4 installation directory])],
-	[PROJDIR="$withval"], [PROJDIR=""])
-
-if test ! "x$PROJDIR" = "x"; then
-	dnl Make sure that the directory exists
-	if test "x$PROJDIR" = "xyes"; then
-		AC_MSG_ERROR([you must specify a parameter to --with-projdir, e.g. --with-projdir=/path/to])
-	else
-		if test -d "$PROJDIR"; then
-			AC_MSG_RESULT([Using user-specified proj directory: $PROJDIR])
-
-			dnl Add the include directory to PROJ_CPPFLAGS
-			PROJ_CPPFLAGS="-I$PROJDIR/include"
-			PROJ_LDFLAGS="-L$PROJDIR/lib"
-		else
-			AC_MSG_ERROR([the --with-projdir directory "$PROJDIR" cannot be found])
-		fi
-	fi
-fi
 
 
 dnl Check that we can find the proj_api.h header file
@@ -866,7 +824,6 @@ CPPFLAGS="$PROJ_CPPFLAGS"
 AC_CHECK_HEADER([proj_api.h], [], [AC_MSG_ERROR([could not find proj_api.h - you may need to specify the directory of a PROJ.4 installation using --with-projdir])])
 
 dnl Return the PROJ.4 version number
-AC_PROJ_VERSION([POSTGIS_PROJ_VERSION])
 AC_DEFINE_UNQUOTED([POSTGIS_PROJ_VERSION], [$POSTGIS_PROJ_VERSION], [PROJ library version])
 AC_SUBST([POSTGIS_PROJ_VERSION])
 CPPFLAGS="$CPPFLAGS_SAVE"
@@ -1038,41 +995,6 @@ if test "$CHECK_PROTOBUF" != "no"; then
     AC_SUBST([PROTOBUF_LDFLAGS])
     AC_SUBST([HAVE_PROTOBUF])
 fi
-
-
-dnl ===========================================================================
-dnl Detect GTK+2.0 for GUI
-dnl ===========================================================================
-
-AC_ARG_WITH([gui],
-	[AS_HELP_STRING([--with-gui], [compile the data import GUI (requires GTK+2.0)])],
-	[GUI="yes"], [GUI="no"])
-
-if test "x$GUI" = "xyes"; then
-	AC_MSG_RESULT([GUI: Build requested, checking for dependencies (GKT+2.0)])
-	dnl Try to find the GTK libs with pkgconfig
-	AM_PATH_GTK_2_0([2.8.0], [GTK_BUILD="gui"], [GTK_BUILD=""])
-
-	dnl Add -mwindows to MinGW GUI build
-	case $host in
-		*mingw32*)
-			GTK_WIN32_FLAGS=-mwindows
-			GTK_WIN32_RES=shp2pgsql-gui.res
-                        GTK_WIN32_BUILD=gui-win32
-			;;
-	esac
-fi
-
-
-
-AC_SUBST([GTK_CFLAGS])
-AC_SUBST([GTK_LIBS])
-AC_SUBST([GTK_WIN32_FLAGS])
-AC_SUBST([GTK_WIN32_RES])
-AC_SUBST([GTK_BUILD])
-AC_SUBST([IGE_MAC_CFLAGS])
-AC_SUBST([IGE_MAC_LIBS])
-
 
 dnl ===========================================================================
 dnl Allow the developer to turn on expensive checks and debugging flags
