@@ -20,3 +20,11 @@ install-sh
 liblwgeom/cunit/Makefile
 liblwgeom/Makefile
 src/Makefile
+missing
+compile
+config.h
+config.h.in
+config.h.in
+depcomp
+Makefile.in
+src/Makefile.in
