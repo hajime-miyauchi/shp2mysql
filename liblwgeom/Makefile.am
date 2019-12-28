@@ -67,3 +67,9 @@ liblwgeom_la_SOURCES= \
 	lwmval.c \
 	lwkmeans.c \
 	varint.c
+
+CPPFLAGS= \
+    -std=c99 \
+	-std=gnu99 \
+	-std=c11 \
+	-std=gnu11
