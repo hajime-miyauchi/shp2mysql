@@ -577,6 +577,7 @@ circ_node_max_distance(const CIRC_NODE *n1, const CIRC_NODE *n2)
 	return sphere_distance(&(n1->center), &(n2->center)) + n1->radius + n2->radius;
 }
 
+#if 0
 double
 circ_tree_distance_tree(const CIRC_NODE* n1, const CIRC_NODE* n2, const SPHEROID* spheroid, double threshold)
 {
@@ -601,6 +602,7 @@ circ_tree_distance_tree(const CIRC_NODE* n1, const CIRC_NODE* n2, const SPHEROID
 	}
 }
 
+#endif
 
 /***********************************************************************
 * Internal node sorting routine to make distance calculations faster?

@@ -17,12 +17,9 @@
 
 #include "shp2mysql-core.h"
 
-#if 0
 #include "../liblwgeom/liblwgeom.h"
 
 #include "../liblwgeom/lwgeom_log.h" /* for LWDEBUG macros */
-
-#endif
 
 // TODO: 
 #ifndef SRID_UNKNOWN
@@ -226,8 +223,6 @@ escape_insert_string(char *str)
 	return result;
 }
 
-#if 0
-
 /**
  * @brief Generate an allocated geometry string for shapefile object obj using the state parameters
  * if "force_multi" is true, single points will instead beated as multipoints with a single vertice.
@@ -309,7 +304,6 @@ GeneratePointGeometry(SHPLOADERSTATE *state, SHPObject *obj, char **geometry, in
 
 	return SHPLOADEROK;
 }
-
 
 /**
  * @brief Generate an allocated geometry string for shapefile object obj using the state parameters
@@ -731,8 +725,6 @@ GeneratePolygonGeometry(SHPLOADERSTATE *state, SHPObject *obj, char **geometry)
 	return SHPLOADEROK;
 }
 
-#endif
-
 /*
  * External functions (defined in shp2pgsql-core.h)
  */
@@ -832,8 +824,6 @@ ShpLoaderCreate(SHPLOADERCONFIG *config)
 
 	return state;
 }
-
-#if 0
 
 /* Open the shapefile and extract the relevant field information */
 int
@@ -1520,7 +1510,6 @@ ShpLoaderGetRecordCount(SHPLOADERSTATE *state)
 	return state->num_entities;
 }
 
-
 /* Return an allocated string representation of a specified record item */
 int
 ShpLoaderGenerateSQLRowStatement(SHPLOADERSTATE *state, int item, char **strrecord)
@@ -1887,8 +1876,6 @@ ShpLoaderGetSQLFooter(SHPLOADERSTATE *state, char **strfooter)
 
 	return SHPLOADEROK;
 }
-
-#endif
 
 
 void

@@ -1744,6 +1744,7 @@ ptarray_area_sphere(const POINTARRAY *pa)
 	return fabs(area);
 }
 
+#if 0
 
 static double ptarray_distance_spheroid(const POINTARRAY *pa1, const POINTARRAY *pa2, const SPHEROID *s, double tolerance, int check_intersection)
 {
@@ -1935,6 +1936,7 @@ static double ptarray_distance_spheroid(const POINTARRAY *pa1, const POINTARRAY 
 }
 
 
+
 /**
 * Calculate the area of an LWGEOM. Anything except POLYGON, MULTIPOLYGON
 * and GEOMETRYCOLLECTION return zero immediately. Multi's recurse, polygons
@@ -2056,7 +2058,6 @@ LWPOINT* lwgeom_project_spheroid(const LWPOINT *r, const SPHEROID *spheroid, dou
 	lwgeom_set_geodetic(lwpoint_as_lwgeom(lwp), LW_TRUE);
 	return lwp;
 }
-
 
 /**
 * Calculate a bearing (azimuth) given a source and destination point.
@@ -2422,6 +2423,8 @@ int lwgeom_covers_lwgeom_sphere(const LWGEOM *lwgeom1, const LWGEOM *lwgeom2)
 	return LW_FALSE;
 
 }
+
+#endif
 
 /**
 * Given a polygon (lon/lat decimal degrees) and point (lon/lat decimal degrees) and
@@ -3152,7 +3155,7 @@ int lwgeom_force_geodetic(LWGEOM *geom)
 	return LW_FALSE;
 }
 
-
+#if 0
 double ptarray_length_spheroid(const POINTARRAY *pa, const SPHEROID *s)
 {
 	GEOGRAPHIC_POINT a, b;
@@ -3253,6 +3256,8 @@ double lwgeom_length_spheroid(const LWGEOM *geom, const SPHEROID *s)
 	lwerror("unsupported type passed to lwgeom_length_sphere");
 	return 0.0;
 }
+
+#endif
 
 /**
 * When features are snapped or sometimes they are just this way, they are very close to

@@ -31,6 +31,7 @@
 #include "liblwgeom_internal.h"
 #include "lwgeom_log.h"
 
+#if 0
 
 /** Force Right-hand-rule on LWGEOM polygons **/
 void
@@ -156,6 +157,8 @@ lwgeom_reverse_in_place(LWGEOM *geom)
 
 	}
 }
+
+#endif
 
 LWLINE *
 lwgeom_as_lwline(const LWGEOM *lwgeom)
@@ -329,7 +332,6 @@ LWGEOM *lwpoint_as_lwgeom(const LWPOINT *obj)
 	return (LWGEOM *)obj;
 }
 
-
 /**
 ** Look-up for the correct MULTI* type promotion for singleton types.
 */
@@ -464,7 +466,6 @@ lwgeom_release(LWGEOM *lwgeom)
 
 }
 
-
 /* @brief Clone LWGEOM object. Serialized point lists are not copied.
  *
  * @see ptarray_clone
@@ -538,7 +539,6 @@ lwgeom_clone_deep(const LWGEOM *lwgeom)
 		return NULL;
 	}
 }
-
 
 /**
  * Return an alloced string
@@ -1123,7 +1123,6 @@ lwtype_get_collectiontype(uint8_t type)
 			return COLLECTIONTYPE;
 	}
 }
-
 
 void lwgeom_free(LWGEOM *lwgeom)
 {

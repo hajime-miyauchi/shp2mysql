@@ -2,10 +2,12 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ([2.69])
-AC_INIT([FULL-PACKAGE-NAME], [VERSION], [BUG-REPORT-ADDRESS])
+AC_INIT([shp2mysql], [0.1], [hajime.miyauchi@gmail.com])
 AM_INIT_AUTOMAKE([foreign])
 AC_CONFIG_SRCDIR([postgis_config.h.in])
 AC_CONFIG_HEADERS([config.h])
+AM_PROG_LIBTOOL
+LT_INIT
 
 # Checks for programs.
 AC_PROG_CXX
@@ -51,6 +53,10 @@ AC_FUNC_REALLOC
 AC_FUNC_STRTOD
 AC_CHECK_FUNCS([floor memmove memset modf pow rint setlocale sqrt strcasecmp strchr strcspn strdup strerror strspn strstr strtol])
 
+AM_GNU_GETTEXT_VERSION([0.19.8])
+AM_ICONV
+
 AC_CONFIG_FILES([Makefile
+                 liblwgeom/Makefile
                  src/Makefile])
 AC_OUTPUT

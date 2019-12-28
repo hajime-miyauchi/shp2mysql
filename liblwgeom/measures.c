@@ -27,6 +27,7 @@
 
 #include <string.h>
 #include <stdlib.h>
+#include <math.h>
 
 #include "measures.h"
 #include "lwgeom_log.h"

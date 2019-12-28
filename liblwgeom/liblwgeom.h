@@ -32,7 +32,7 @@
 #include <stdarg.h>
 #include <stdio.h>
 #include <stdint.h>
-#include "proj_api.h"
+// #include "proj_api.h"
 
 #if defined(PJ_VERSION) && PJ_VERSION >= 490
 /* Enable new geodesic functions */
@@ -175,20 +175,20 @@ typedef enum LWORD_T {
 * Maximum allowed SRID value in serialized geometry.
 * Currently we are using 21 bits (2097152) of storage for SRID.
 */
-#define SRID_MAXIMUM @SRID_MAX@
+#define SRID_MAXIMUM 2097152
 
 /**
  * Maximum valid SRID value for the user
  * We reserve 1000 values for internal use
  */
-#define SRID_USER_MAXIMUM @SRID_USR_MAX@
+#define SRID_USER_MAXIMUM 998999
 
 /** Unknown SRID value */
 #define SRID_UNKNOWN 0
 #define SRID_IS_UNKNOWN(x) ((int)x<=0)
 
 /* Invalid SRID value, for internal use */
-#define SRID_INVALID (@SRID_MAX@ + 2)
+#define SRID_INVALID (2097152 + 2)
 
 /*
 ** EPSG WGS84 geographics, OGC standard default SRS, better be in
@@ -2288,7 +2288,7 @@ LWGEOM* lwgeom_offsetcurve(const LWGEOM *geom, double size, int quadsegs, int jo
  */
 int lwgeom_is_simple(const LWGEOM *lwgeom);
 
-
+#if 0
 /*******************************************************************************
  * PROJ4-dependent extra functions on LWGEOM
  ******************************************************************************/
@@ -2308,7 +2308,7 @@ projPJ lwproj_from_string(const char* txt);
  */
 int lwgeom_transform(LWGEOM *geom, projPJ inpj, projPJ outpj);
 int ptarray_transform(POINTARRAY *pa, projPJ inpj, projPJ outpj);
-
+#endif
 
 /*******************************************************************************
  * GEOS-dependent extra functions on LWGEOM

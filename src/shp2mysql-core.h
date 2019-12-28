@@ -13,7 +13,7 @@
 #include "shpcommon.h"
 #include "getopt.h"
 
-// #include "../liblwgeom/stringbuffer.h"
+#include "../liblwgeom/stringbuffer.h"
 
 #define S2P_RCSID "$Id$"
 

@@ -26,6 +26,7 @@
 #include "liblwgeom_internal.h"
 #include "lwgeom_log.h"
 #include <ctype.h> /* for tolower */
+#include <math.h>
 
 int
 p4d_same(const POINT4D *p1, const POINT4D *p2)

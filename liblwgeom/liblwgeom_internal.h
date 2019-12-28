@@ -342,10 +342,13 @@ char lwtriangle_same(const LWTRIANGLE *p1, const LWTRIANGLE *p2);
 char lwcollection_same(const LWCOLLECTION *p1, const LWCOLLECTION *p2);
 char lwcircstring_same(const LWCIRCSTRING *p1, const LWCIRCSTRING *p2);
 
+#if 0
 /*
 * Transform
 */
 int point4d_transform(POINT4D *pt, projPJ srcpj, projPJ dstpj);
+
+#endif
 
 /*
 * Shift

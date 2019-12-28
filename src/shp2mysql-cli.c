@@ -342,8 +342,6 @@ main (int argc, char **argv)
 	/* Create the shapefile state object */
 	state = ShpLoaderCreate(config);
 
-#if 0
-
 	/* Open the shapefile */
 	ret = ShpLoaderOpenShape(state);
 	if (ret != SHPLOADEROK)
@@ -449,8 +447,6 @@ main (int argc, char **argv)
 	printf("%s", footer);
 	free(footer);
 
-
-#endif
 	/* Free the state object */
 	ShpLoaderDestroy(state);
 
