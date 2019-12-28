@@ -1,3 +1,3 @@
 ACLOCAL_AMFLAGS = --install -I m4
 
-SUBDIRS = src liblwgeom
+SUBDIRS = liblwgeom src
