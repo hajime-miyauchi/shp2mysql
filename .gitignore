@@ -28,3 +28,7 @@ config.h.in
 depcomp
 Makefile.in
 src/Makefile.in
+*.Po
+Makefile
+src/shp2mysql
+stamp-h1
