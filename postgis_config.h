@@ -5,6 +5,8 @@
    configure process */
 #define POSTGIS_DEBUG_LEVEL 0
 
+#define SHP2MYSQL 1
+
 /* Define to 1 to enable memory checks in pointarray management. */
 #undef PARANOIA_LEVEL
 

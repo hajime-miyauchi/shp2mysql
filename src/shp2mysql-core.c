@@ -283,7 +283,11 @@ GeneratePointGeometry(SHPLOADERSTATE *state, SHPObject *obj, char **geometry, in
 
 	if (state->config->use_wkt)
 	{
+#ifdef SHP2MYSQL
+		mem = lwgeom_to_wkt(lwgeom, WKT_ISO, WKT_PRECISION, &mem_length);
+#else
 		mem = lwgeom_to_wkt(lwgeom, WKT_EXTENDED, WKT_PRECISION, &mem_length);
+#endif
 	}
 	else
 	{
@@ -381,7 +385,11 @@ GenerateLineStringGeometry(SHPLOADERSTATE *state, SHPObject *obj, char **geometr
 	if (!state->config->use_wkt)
 		mem = lwgeom_to_hexwkb(lwgeom, WKB_EXTENDED, &mem_length);
 	else
+#ifdef SHP2MYSQL
+		mem = lwgeom_to_wkt(lwgeom, WKT_ISO, WKT_PRECISION, &mem_length);
+#else
 		mem = lwgeom_to_wkt(lwgeom, WKT_EXTENDED, WKT_PRECISION, &mem_length);
+#endif
 
 	if ( !mem )
 	{
@@ -702,7 +710,11 @@ GeneratePolygonGeometry(SHPLOADERSTATE *state, SHPObject *obj, char **geometry)
 	if (!state->config->use_wkt)
 		mem = lwgeom_to_hexwkb(lwgeom, WKB_EXTENDED, &mem_length);
 	else
+#ifdef SHP2MYSQL
+		mem = lwgeom_to_wkt(lwgeom, WKT_ISO, WKT_PRECISION, &mem_length);
+#else
 		mem = lwgeom_to_wkt(lwgeom, WKT_EXTENDED, WKT_PRECISION, &mem_length);
+#endif
 
 	if ( !mem )
 	{
@@ -761,7 +773,7 @@ set_loader_config_defaults(SHPLOADERCONFIG *config)
 	config->null_policy = POLICY_NULL_INSERT;
 	config->sr_id = SRID_UNKNOWN;
 	config->shp_sr_id = SRID_UNKNOWN;
-	config->use_wkt = 0;
+	config->use_wkt = 1;
 	config->tablespace = NULL;
 	config->idxtablespace = NULL;
 	config->usetransaction = 1;
@@ -1243,17 +1255,29 @@ ShpLoaderOpenShape(SHPLOADERSTATE *state)
 			return SHPLOADERERR;
 		}
 
+#ifdef SHP2MYSQL
+		strcat(state->col_names, "`");
+#else
 		strcat(state->col_names, "\"");
+#endif
 		strcat(state->col_names, name);
 
 		if (state->config->readshape == 1 || j < (state->num_fields - 1))
 		{
 			/* Don't include last comma if its the last field and no geometry field will follow */
+#ifdef SHP2MYSQL
+			strcat(state->col_names, "`,");
+#else
 			strcat(state->col_names, "\",");
+#endif
 		}
 		else
 		{
+#ifdef SHP2MYSQL
+			strcat(state->col_names, "`");
+#else
 			strcat(state->col_names, "\"");
+#endif
 		}
 	}
 
@@ -1284,11 +1308,19 @@ ShpLoaderGetSQLHeader(SHPLOADERSTATE *state, char **strheader)
 	/* Set the client encoding if required */
 	if (state->config->encoding)
 	{
+#ifdef SHP2MYSQL
+		// TODO: 
+#else
 		stringbuffer_aprintf(sb, "SET CLIENT_ENCODING TO UTF8;\n");
+#endif
 	}
 
+#ifdef SHP2MYSQL
+		// TODO: 
+#else
 	/* Use SQL-standard string escaping rather than PostgreSQL standard */
 	stringbuffer_aprintf(sb, "SET STANDARD_CONFORMING_STRINGS TO ON;\n");
+#endif
 
 	/* Drop table if requested */
 	if (state->config->opt == 'd')
@@ -1308,22 +1340,41 @@ ShpLoaderGetSQLHeader(SHPLOADERSTATE *state, char **strheader)
 		{
 			if (state->config->readshape == 1 && (! state->config->geography) )
 			{
+#ifdef SHP2MYSQL
+				//TODO: 
+#else
 				stringbuffer_aprintf(sb, "SELECT DropGeometryColumn('%s','%s','%s');\n",
 				                     state->config->schema, state->config->table, state->geo_col);
+#endif
 			}
 
+#ifdef SHP2MYSQL
+			// TODO: MySQLにスキーマあるんだっけ？
+			stringbuffer_aprintf(sb, "DROP TABLE IF EXISTS `%s`.`%s`;\n", state->config->schema,
+			                     state->config->table);
+#else
 			stringbuffer_aprintf(sb, "DROP TABLE IF EXISTS \"%s\".\"%s\";\n", state->config->schema,
 			                     state->config->table);
+#endif
 		}
 		else
 		{
 			if (state->config->readshape == 1  && (! state->config->geography) )
 			{
+#ifdef SHP2MYSQL
+			// TODO: 
+#else
 				stringbuffer_aprintf(sb, "SELECT DropGeometryColumn('','%s','%s');\n",
 				                     state->config->table, state->geo_col);
+#endif
 			}
 
+#ifdef SHP2MYSQL
+		// TODO: 
+			stringbuffer_aprintf(sb, "DROP TABLE IF EXISTS `%s`;\n", state->config->table);
+#else
 			stringbuffer_aprintf(sb, "DROP TABLE IF EXISTS \"%s\";\n", state->config->table);
+#endif
 		}
 	}
 
@@ -1342,18 +1393,32 @@ ShpLoaderGetSQLHeader(SHPLOADERSTATE *state, char **strheader)
 		*/
 		if (state->config->schema)
 		{
+#ifdef SHP2MYSQL
+			// TODO: MySQLにスキーマあるんだっけ？
+			stringbuffer_aprintf(sb, "CREATE TABLE `%s`.`%s` (gid serial",
+			                     state->config->schema, state->config->table);
+#else
 			stringbuffer_aprintf(sb, "CREATE TABLE \"%s\".\"%s\" (gid serial",
 			                     state->config->schema, state->config->table);
+#endif
 		}
 		else
 		{
+#ifdef SHP2MYSQL
+			stringbuffer_aprintf(sb, "CREATE TABLE `%s` (gid serial", state->config->table);
+#else
 			stringbuffer_aprintf(sb, "CREATE TABLE \"%s\" (gid serial", state->config->table);
+#endif
 		}
 
 		/* Generate the field types based upon the shapefile information */
 		for (j = 0; j < state->num_fields; j++)
 		{
+#ifdef SHP2MYSQL
+			stringbuffer_aprintf(sb, ",\n`%s` ", state->field_names[j]);
+#else
 			stringbuffer_aprintf(sb, ",\n\"%s\" ", state->field_names[j]);
+#endif
 
 			/* First output the raw field type string */
 			stringbuffer_aprintf(sb, "%s", state->pgfieldtypes[j]);
@@ -1387,14 +1452,23 @@ ShpLoaderGetSQLHeader(SHPLOADERSTATE *state, char **strheader)
 				stringbuffer_destroy(sb);
 				return SHPLOADERERR;
 			}
+
+#ifdef SHP2MYSQL
+			//TODO:
+#else
 			stringbuffer_aprintf(sb, ",\n\"%s\" geography(%s%s,%d)", state->geo_col, state->pgtype, dimschar, 4326);
+#endif
 		}
 		stringbuffer_aprintf(sb, ")");
 
 		/* Tablespace is optional. */
 		if (state->config->tablespace != NULL)
 		{
+#ifdef SHP2MYSQL
+			//TODO: MySQLにテーブルスペースあったっけ？
+#else
 			stringbuffer_aprintf(sb, " TABLESPACE \"%s\"", state->config->tablespace);
+#endif
 		}
 		stringbuffer_aprintf(sb, ";\n");
 
@@ -1414,9 +1488,18 @@ ShpLoaderGetSQLHeader(SHPLOADERSTATE *state, char **strheader)
 		/* Schema is optional, include if present. */
 		if (state->config->schema)
 		{
+#ifdef SHP2MYSQL
+			//TODO: MySQLにスキーマあったっけ？
+			stringbuffer_aprintf(sb, "`%s`.",state->config->schema);
+#else
 			stringbuffer_aprintf(sb, "\"%s\".",state->config->schema);
+#endif
 		}
+#ifdef SHP2MYSQL
+		stringbuffer_aprintf(sb, "`%s` ADD PRIMARY KEY (gid);\n", state->config->table);
+#else
 		stringbuffer_aprintf(sb, "\"%s\" ADD PRIMARY KEY (gid);\n", state->config->table);
+#endif
 
 		/* Tablespace is optional for the index. */
 		if (state->config->idxtablespace != NULL)
@@ -1424,15 +1507,23 @@ ShpLoaderGetSQLHeader(SHPLOADERSTATE *state, char **strheader)
 			stringbuffer_aprintf(sb, "ALTER INDEX ");
 			if (state->config->schema)
 			{
+#ifdef SHP2MYSQL
+			//TODO: MySQLにスキーマあったっけ？
+#else
 				stringbuffer_aprintf(sb, "\"%s\".",state->config->schema);
+#endif
 			}
 
+#ifdef SHP2MYSQL
+			//TODO: MySQLにスキーマあったっけ？
+#else
 			/* WARNING: We're assuming the default "table_pkey" name for the primary
 			 *          key index.  PostgreSQL may use "table_pkey1" or similar in the
 			 *          case of a name conflict, so you may need to edit the produced
 			 *          SQL in this rare case. */
 			stringbuffer_aprintf(sb, "\"%s_pkey\" SET TABLESPACE \"%s\";\n",
 						state->config->table, state->config->idxtablespace);
+#endif
 		}
 
 		/* Create the geometry column with an addgeometry call */
@@ -1442,16 +1533,32 @@ ShpLoaderGetSQLHeader(SHPLOADERSTATE *state, char **strheader)
 			int srid = state->to_srid;
 			if (state->config->schema)
 			{
+#ifdef SHP2MYSQL
+			//TODO: MySQLにスキーマあったっけ？
+#else
 				stringbuffer_aprintf(sb, "SELECT AddGeometryColumn('%s','%s','%s','%d',",
 				                     state->config->schema, state->config->table, state->geo_col, srid);
+#endif
 			}
 			else
 			{
+#ifdef SHP2MYSQL
+				stringbuffer_aprintf(sb, "ALTER TABLE `%s` ADD COLUMN %s %s SRID %d ",
+				                     state->config->table,
+									 state->geo_col,
+									 state->pgtype,
+									 srid);
+#else
 				stringbuffer_aprintf(sb, "SELECT AddGeometryColumn('','%s','%s','%d',",
 				                     state->config->table, state->geo_col, srid);
+#endif
 			}
 
+#ifdef SHP2MYSQL
+			stringbuffer_aprintf(sb, ";\n");
+#else
 			stringbuffer_aprintf(sb, "'%s',%d);\n", state->pgtype, state->pgdims);
+#endif
 		}
 	}
 
@@ -1562,13 +1669,24 @@ ShpLoaderGenerateSQLRowStatement(SHPLOADERSTATE *state, int item, char **strreco
 	{
 		if (state->config->schema)
 		{
+#ifdef SHP2MYSQL
+			// TODO: MySQLにスキーマってあったっけ？
+			stringbuffer_aprintf(sb, "INSERT INTO `%s`.`%s` %s VALUES (", state->config->schema,
+			                     state->config->table, state->col_names);
+#else
 			stringbuffer_aprintf(sb, "INSERT INTO \"%s\".\"%s\" %s VALUES (", state->config->schema,
 			                     state->config->table, state->col_names);
+#endif
 		}
 		else
 		{
+#ifdef SHP2MYSQL
+			stringbuffer_aprintf(sb, "INSERT INTO `%s` %s VALUES (", state->config->table,
+			                     state->col_names);
+#else
 			stringbuffer_aprintf(sb, "INSERT INTO \"%s\" %s VALUES (", state->config->table,
 			                     state->col_names);
+#endif
 		}
 	}
 
@@ -1762,14 +1880,23 @@ ShpLoaderGenerateSQLRowStatement(SHPLOADERSTATE *state, int item, char **strreco
 				{
 					stringbuffer_aprintf(sb, "ST_Transform(");
 				}
+
+#ifdef SHP2MYSQL
+				stringbuffer_aprintf(sb, "ST_GeomFromText('");
+#else
 				stringbuffer_aprintf(sb, "'");
+#endif
 			}
 
 			stringbuffer_aprintf(sb, "%s", geometry);
 
 			if (!state->config->dump_format)
 			{
+#ifdef SHP2MYSQL
+				stringbuffer_aprintf(sb, "', %d, 'axis-order=long-lat')", state->from_srid);
+#else
 				stringbuffer_aprintf(sb, "'");
+#endif
 
 				/* Close the ST_Transform if reprojecting. */
 				if (state->to_srid != state->from_srid)

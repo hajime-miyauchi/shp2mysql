@@ -4,7 +4,7 @@
 AC_PREREQ([2.69])
 AC_INIT([shp2mysql], [0.1], [hajime.miyauchi@gmail.com])
 AM_INIT_AUTOMAKE([foreign])
-AC_CONFIG_SRCDIR([postgis_config.h.in])
+# AC_CONFIG_SRCDIR([postgis_config.h.in])
 AC_CONFIG_HEADERS([config.h])
 AM_PROG_LIBTOOL
 LT_INIT
