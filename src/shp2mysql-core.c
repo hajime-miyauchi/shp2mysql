@@ -1990,9 +1990,17 @@ ShpLoaderGetSQLFooter(SHPLOADERSTATE *state, char **strfooter)
 	stringbuffer_aprintf(sb, "ANALYZE ");
 	if (state->config->schema)
 	{
+#ifdef SHP2MYSQL
+		stringbuffer_aprintf(sb, "`%s`.", state->config->schema);
+#else
 		stringbuffer_aprintf(sb, "\"%s\".", state->config->schema);
+#endif
 	}
+#ifdef SHP2MYSQL
+	stringbuffer_aprintf(sb, "`%s`;\n", state->config->table);
+#else
 	stringbuffer_aprintf(sb, "\"%s\";\n", state->config->table);
+#endif
 
 	/* Copy the string buffer into a new string, destroying the string buffer */
 	ret = (char *)malloc(strlen((char *)stringbuffer_getstring(sb)) + 1);
