@@ -23,7 +23,7 @@ AC_PROG_YACC
 
 # Checks for libraries.
 # FIXME: Replace `main' with a function in `-lgeos_c':
-AC_CHECK_LIB([geos_c], [main])
+# AC_CHECK_LIB([geos_c], [main])
 # FIXME: Replace `main' with a function in `-lm':
 AC_CHECK_LIB([m], [main])
 # FIXME: Replace `main' with a function in `-lproj':

@@ -10,4 +10,4 @@ noinst_HEADERS=getopt.h \
                shapefil.h \
                shp2mysql-core.h \
                shpcommon.h
-shp2mysql_LDADD=../liblwgeom/liblwgeom.la
+shp2mysql_LDADD=../liblwgeom/liblwgeom.la @LIBICONV@
