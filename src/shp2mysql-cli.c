@@ -25,13 +25,11 @@ usage()
     /* TODO:
 	printf(_( "RELEASE: %s (r%d)\n" ), POSTGIS_LIB_VERSION, POSTGIS_SVN_REVISION);
     */
-	printf(_( "USAGE: shp2mysql [<options>] <shapefile> [[<schema>.]<table>]\n"
+	printf(_( "USAGE: shp2mysql [<options>] <shapefile> [[<table>]\n"
 	          "OPTIONS:\n" ));
-    /* TODO:
 	printf(_( "  -s [<from>:]<srid> Set the SRID field. Defaults to %d.\n"
 	          "      Optionally reprojects from given SRID (cannot be used with -D).\n"),
 	          SRID_UNKNOWN);
-    */
 	printf(_( " (-d|a|c|p) These are mutually exclusive options:\n"
 	          "     -d  Drops the table, then recreates it and populates\n"
 	          "         it with current shape file data.\n"
@@ -42,6 +40,7 @@ usage()
 	          "     -p  Prepare mode, only creates the table.\n" ));
 	printf(_( "  -g <geocolumn> Specify the name of the geometry/geography column\n"
 	          "      (mostly useful in append mode).\n" ));
+#ifndef SHP2MYSQL
 	printf(_( "  -D  Use postgresql dump format (defaults to SQL insert statements).\n" ));
 	printf(_( "  -e  Execute each statement individually, do not use a transaction.\n"
 	          "      Not compatible with -D.\n" ));
@@ -57,11 +56,12 @@ usage()
 	         "         AVERYLONGCOLUMNNAME DBFFIELD2\n" ));
 	printf(_( "  -S  Generate simple geometries instead of MULTI geometries.\n" ));
 	printf(_( "  -t <dimensionality> Force geometry to be one of '2D', '3DZ', '3DM', or '4D'\n" ));
-
 	printf(_( "  -w  Output WKT instead of WKB.  Note that this can result in\n"
 	          "      coordinate drift.\n" ));
+#endif
 	printf(_( "  -W <encoding> Specify the character encoding of Shape's\n"
 	          "      attribute column. (default: \"UTF-8\")\n" ));
+#ifndef SHP2MYSQL
 	printf(_( "  -N <policy> NULL geometries handling policy (insert*,skip,abort).\n" ));
 	printf(_( "  -n  Only import DBF file.\n" ));
 	printf(_( "  -T <tablespace> Specify the tablespace for the new table.\n"
@@ -70,6 +70,7 @@ usage()
 	printf(_( "  -X <tablespace> Specify the tablespace for the table's indexes.\n"
                   "      This applies to the primary key, and the spatial index if\n"
                   "      the -I flag is used.\n" ));
+#endif
 	printf(_( "  -?  Display this help screen.\n" ));
 	printf( "\n" );
 	printf(_( "  An argument of `--' disables further option processing.\n" ));
