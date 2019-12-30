@@ -27,9 +27,14 @@ usage()
     */
 	printf(_( "USAGE: shp2mysql [<options>] <shapefile> [[<table>]\n"
 	          "OPTIONS:\n" ));
+#ifdef SHP2MYSQL
+	printf(_( "  -s <srid> Set the SRID field. Defaults to %d.\n"),
+	          SRID_UNKNOWN);
+#else
 	printf(_( "  -s [<from>:]<srid> Set the SRID field. Defaults to %d.\n"
 	          "      Optionally reprojects from given SRID (cannot be used with -D).\n"),
 	          SRID_UNKNOWN);
+#endif
 	printf(_( " (-d|a|c|p) These are mutually exclusive options:\n"
 	          "     -d  Drops the table, then recreates it and populates\n"
 	          "         it with current shape file data.\n"
