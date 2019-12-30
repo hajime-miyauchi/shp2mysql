@@ -84,10 +84,11 @@ noinst_HEADERS=bytebuffer.h \
 	lwin_wkt.h \
 	lwin_wkt_parse.h \
 	lwout_twkb.h \
-	lwrandom.h \
+	lwout_x3d.h \
 	lwtree.h \
-	measures3d.h \
+	lwunionfind.h \
 	measures.h \
+	measures3d.h \
 	stringbuffer.h \
 	varint.h
 
