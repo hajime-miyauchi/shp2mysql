@@ -68,6 +68,29 @@ liblwgeom_la_SOURCES= \
 	lwkmeans.c \
 	varint.c
 
+noinst_HEADERS=bytebuffer.h \
+	effectivearea.h \
+	liblwgeom.h \
+	liblwgeom_internal.h \
+	lwgeodetic.h \
+	lwgeodetic_tree.h \
+	liblwgeom_topo.h \
+	liblwgeom_topo_internal.h \
+	lwgeom_log.h \
+	lwgeom_geos.h \
+	lwgeom_log.h \
+	lwgeom_sfcgal.h \
+	lwinline.h \
+	lwin_wkt.h \
+	lwin_wkt_parse.h \
+	lwout_twkb.h \
+	lwrandom.h \
+	lwtree.h \
+	measures3d.h \
+	measures.h \
+	stringbuffer.h \
+	varint.h
+
 CPPFLAGS= \
     -std=c99 \
 	-std=gnu99 \
