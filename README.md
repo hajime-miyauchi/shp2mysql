@@ -4,23 +4,45 @@ shp2mysql is a fork of shp2pgsql(PostGIS).
 
 shp2mysqlはシェープファイルを、MySQL8へのインポート用SQLに変換するコマンドラインツールです。
 
-## 使い方
+## ダウンロード
 
-```
-$ shp2mysql input.shp > output.sql
-```
+リリースページからダウンロードします。
+
+https://github.com/hajime-miyauchi/shp2mysql/releases
 
 ## インストール
+
+### Windows
+
+リリースページに実行ファイル(shp2mysql.exe)があります。
+
+### Linux/Mac
 
 ソースからコンパイルします。
 
 ```
-$ ./autogen.sh
 $ ./configure
 $ make
 $ sudo make install
 ```
 
-もしくはリリースに一部プラットフォームの実行ファイルがあります。
+## 使い方
 
-https://github.com/hajime-miyauchi/shp2mysql/releases
+入力するシェープファイル名を引数として実行し、出力結果を保存します。
+
+```
+$ shp2mysql input.shp > output.sql
+```
+
+生成されたSQLをMySQLで実行します。
+
+```
+$ mysql -u root -p データベース名 < output.sql
+```
+
+入力の文字コードやSRIDを指定することもできます。
+
+```
+$ shp2mysql -W CP932 -s 4326 input.shp > output.sql
+```
+
