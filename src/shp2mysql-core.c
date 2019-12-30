@@ -1987,7 +1987,7 @@ ShpLoaderGetSQLFooter(SHPLOADERSTATE *state, char **strfooter)
 	}
 
 	/* Always ANALYZE the resulting table, for better stats */
-	stringbuffer_aprintf(sb, "ANALYZE ");
+	stringbuffer_aprintf(sb, "ANALYZE TABLE ");
 	if (state->config->schema)
 	{
 #ifdef SHP2MYSQL
