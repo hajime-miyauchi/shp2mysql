@@ -54,13 +54,6 @@ liblwgeom_la_SOURCES= \
 	lwout_x3d.c \
 	lwout_encoded_polyline.c \
 	lwgeom_debug.c \
-	lwgeom_geos.c \
-	lwgeom_geos_clean.c \
-	lwgeom_geos_cluster.c \
-	lwgeom_geos_node.c \
-	lwgeom_geos_split.c \
-	lwgeom_topo.c \
-	lwgeom_wrapx.c \
 	lwunionfind.c \
 	effectivearea.c \
 	lwchaikins.c \
@@ -74,10 +67,7 @@ noinst_HEADERS=bytebuffer.h \
 	liblwgeom_internal.h \
 	lwgeodetic.h \
 	lwgeodetic_tree.h \
-	liblwgeom_topo.h \
-	liblwgeom_topo_internal.h \
 	lwgeom_log.h \
-	lwgeom_geos.h \
 	lwgeom_log.h \
 	lwgeom_sfcgal.h \
 	lwinline.h \

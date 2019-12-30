@@ -1233,6 +1233,7 @@ extern void lwgeom_scale(LWGEOM *geom, const POINT4D *factors);
 extern void lwgeom_remove_repeated_points_in_place(LWGEOM *in, double tolerance);
 
 
+#if 0
 /**
  * @brief wrap geometry on given cut x value
  *
@@ -1246,7 +1247,7 @@ extern void lwgeom_remove_repeated_points_in_place(LWGEOM *in, double tolerance)
  * @param amount shift amount and wrapping direction
  */
 LWGEOM *lwgeom_wrapx(const LWGEOM *lwgeom, double cutx, double amount);
-
+#endif
 
 /**
 * @brief Check whether or not a lwgeom is big enough to warrant a bounding box.

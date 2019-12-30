@@ -2202,6 +2202,7 @@ lwgeom_subdivide_recursive(const LWGEOM *geom,
 			   uint32_t depth,
 			   LWCOLLECTION *col)
 {
+#if 0
 	const uint32_t maxdepth = 50;
 	GBOX clip, subbox1, subbox2;
 	uint32_t nvertices = 0;
@@ -2365,6 +2366,7 @@ lwgeom_subdivide_recursive(const LWGEOM *geom,
 			lwgeom_free(clipped);
 		}
 	}
+#endif
 }
 
 LWCOLLECTION *
