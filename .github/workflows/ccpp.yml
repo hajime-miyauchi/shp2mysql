@@ -10,7 +10,7 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: install requirements
-      run: sudo apt install gettext 
+      run: sudo apt install gettext autopoint
     - name: autogen
       run: ./autogen.sh
     - name: configure
