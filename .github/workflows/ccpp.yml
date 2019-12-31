@@ -9,7 +9,9 @@ jobs:
     
     steps:
     - uses: actions/checkout@v1
-    - name: autogen.sh
+    - name: install requirements
+      run: sudo apt install gettext 
+    - name: autogen
       run: ./autogen.sh
     - name: configure
       run: ./configure
