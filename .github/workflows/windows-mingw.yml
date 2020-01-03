@@ -1,7 +1,6 @@
 name: "Windows MinGW"
 
-on:
-  - push
+on:[] #push
 
 jobs:
   build:
