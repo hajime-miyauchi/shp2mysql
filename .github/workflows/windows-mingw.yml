@@ -5,12 +5,27 @@ on:
 
 jobs:
   build:
-    runs-on: windows-2019
+    runs-on: windows-latest
+    env:
+      MSYSTEM: MINGW64
+      MSYS2_ARCH: x86_64
     steps:
     - uses: actions/checkout@v1
-    - name: Run a one-line script
-      run: echo Hello, world!
-    - name: Run a multi-line script
+    - name: Install MSYS2
       run: |
-        echo Add other actions to build,
-        echo test, and deploy your project.
+        choco install --no-progress msys2 --params="/NoUpdate /NoPath"
+    - name: Update MSYS2
+      run: |
+        $env:PATH = "C:\tools\msys64\usr\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem"
+        C:\tools\msys64\usr\bin\pacman --noconfirm -Syyuu
+        C:\tools\msys64\usr\bin\pacman --noconfirm -Syuu
+    - name: Install Dependencies
+      run: pacman -S base-devel mingw-w64-i686-toolchain mingw-w64-x86_64-toolchain
+    - name: Make
+      run: |
+        ./autogen.sh
+        ./configure
+        make dist
+#    - uses: actions/upload-artifact@masterwith:
+#      name: 
+#      path: 
