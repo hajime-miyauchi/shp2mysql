@@ -9,8 +9,8 @@ jobs:
     
     steps:
     - uses: actions/checkout@v1
-    - name: install requirements
-      run: sudo apt install gettext autopoint
+    - name: install Dependences
+      run: apt install -y mingw-w64 win-iconv-mingw-w64-dev
     - name: autogen
       run: ./autogen.sh
     - name: configure 
