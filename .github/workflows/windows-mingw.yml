@@ -20,7 +20,7 @@ jobs:
         C:\tools\msys64\usr\bin\pacman --noconfirm -Syyuu
         C:\tools\msys64\usr\bin\pacman --noconfirm -Syuu
     - name: Install Dependencies
-      run: pacman -S base-devel mingw-w64-i686-toolchain mingw-w64-x86_64-toolchain
+      run: C:\tools\msys64\usr\bin\pacman --noconfirm -S base-devel mingw-w64-i686-toolchain mingw-w64-x86_64-toolchain
     - name: Make
       run: |
         ./autogen.sh
