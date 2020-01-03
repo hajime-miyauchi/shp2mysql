@@ -17,7 +17,14 @@ jobs:
       run: ./configure --host=x86_64-w64-mingw32 --enable-static --disable-shared LDFLAGS=-static
     - name: make
       run: make
+    - name: Package
+      run: |
+        mkdir -p shp2mysql/
+        cp src/shp2mysql.exe shp2mysql/
+        cp /usr/x86_64-w64-mingw32/bin/iconv.dll shp2mysql/
+        cp LICENSE shp2mysql/
+        zip -r shp2mysql-win-64.zip shp2mysql/
     - uses: actions/upload-artifact@master
       with:
-        name: shp2mysql.exe
-        path: src/shp2mysql.exe
+        name: shp2mysql-win-64.zip
+        path: shp2mysql-win-64.zip
