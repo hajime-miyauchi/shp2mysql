@@ -26,14 +26,20 @@ jobs:
       run: |
         $env:PATH = "C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem"
         C:\tools\msys64\usr\bin\bash -lc "./autogen.sh"
+      env:
+        CHERE_INVOKING: yes
     - name: Configure
       run: |
         $env:PATH = "C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem"
         C:\tools\msys64\usr\bin\bash -lc "./configure"
+      env:
+        CHERE_INVOKING: yes
     - name: Make
       run: |
         $env:PATH = "C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem"
         C:\tools\msys64\usr\bin\bash -lc "make dist"
+      env:
+        CHERE_INVOKING: yes
 #    - uses: actions/upload-artifact@masterwith:
 #      name: 
 #      path: 
