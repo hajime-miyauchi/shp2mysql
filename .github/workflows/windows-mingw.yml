@@ -40,6 +40,10 @@ jobs:
         C:\tools\msys64\usr\bin\bash -lc "make dist"
       env:
         CHERE_INVOKING: yes
+    - uses: actions/upload-artifact@master
+      with:
+        name: shp2mysql.exe
+        path: src/shp2mysql.exe
 #    - uses: actions/upload-artifact@masterwith:
 #      name: 
 #      path: 
