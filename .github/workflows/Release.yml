@@ -10,7 +10,7 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: install Dependences
-      run: sudo apt install -y mingw-w64 win-iconv-mingw-w64-dev
+      run: sudo apt install -y mingw-w64 win-iconv-mingw-w64-dev endpoint
     - name: autogen
       run: ./autogen.sh
     - name: configure 
