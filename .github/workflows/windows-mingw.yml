@@ -21,11 +21,18 @@ jobs:
         C:\tools\msys64\usr\bin\pacman --noconfirm -Syuu
     - name: Install Dependencies
       run: C:\tools\msys64\usr\bin\pacman --noconfirm -S base-devel mingw-w64-i686-toolchain mingw-w64-x86_64-toolchain
-    - name: Make
+    - name: Autogen
       run: |
-        ./autogen.sh
-        ./configure
-        make dist
+        $env:PATH = "C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem"
+        C:\tools\msys64\usr\bin\bash -lc "autogen.sh"
+    - name: Configure
+      run: |
+        $env:PATH = "C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem"
+        C:\tools\msys64\usr\bin\bash -lc "./configure"
+    - name: Configure
+      run: |
+        $env:PATH = "C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem"
+        C:\tools\msys64\usr\bin\bash -lc "make dist"
 #    - uses: actions/upload-artifact@masterwith:
 #      name: 
 #      path: 
