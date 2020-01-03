@@ -34,10 +34,16 @@ jobs:
         C:\tools\msys64\usr\bin\bash -lc "./configure"
       env:
         CHERE_INVOKING: yes
-    - name: Make
+    - name: Make Dist
       run: |
         $env:PATH = "C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem"
         C:\tools\msys64\usr\bin\bash -lc "make dist"
+      env:
+        CHERE_INVOKING: yes
+    - name: Make
+      run: |
+        $env:PATH = "C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem"
+        C:\tools\msys64\usr\bin\bash -lc "make"
       env:
         CHERE_INVOKING: yes
     - uses: actions/upload-artifact@master
