@@ -1,6 +1,7 @@
 name: C/C++ CI
 
-on: [push]
+#on: [push]
+on: []
 
 jobs:
   build:
