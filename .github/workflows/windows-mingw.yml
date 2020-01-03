@@ -31,7 +31,7 @@ jobs:
     - name: Configure
       run: |
         $env:PATH = "C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem"
-        C:\tools\msys64\usr\bin\bash -lc "./configure"
+        C:\tools\msys64\usr\bin\bash -lc "./configure --prefix=/mingw64 LDFLAGS=-static"
       env:
         CHERE_INVOKING: yes
     - name: Make Dist
