@@ -20,16 +20,17 @@ jobs:
         C:\tools\msys64\usr\bin\pacman --noconfirm -Syyuu
         C:\tools\msys64\usr\bin\pacman --noconfirm -Syuu
     - name: Install Dependencies
+        $env:PATH = "C:\tools\msys64\usr\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem"
       run: C:\tools\msys64\usr\bin\pacman --noconfirm -S base-devel mingw-w64-i686-toolchain mingw-w64-x86_64-toolchain
     - name: Autogen
       run: |
         $env:PATH = "C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem"
-        C:\tools\msys64\usr\bin\bash -lc "autogen.sh"
+        C:\tools\msys64\usr\bin\bash -lc "./autogen.sh"
     - name: Configure
       run: |
         $env:PATH = "C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem"
         C:\tools\msys64\usr\bin\bash -lc "./configure"
-    - name: Configure
+    - name: Make
       run: |
         $env:PATH = "C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem"
         C:\tools\msys64\usr\bin\bash -lc "make dist"
