@@ -1,0 +1,23 @@
+name: Release
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v1
+    - name: install requirements
+      run: sudo apt install gettext autopoint
+    - name: autogen
+      run: ./autogen.sh
+    - name: configure 
+      run: ./configure --host=x86_64-w64-mingw32 --enable-static --disable-shared LDFLAGS=-static
+    - name: make
+      run: make
+    - uses: actions/upload-artifact@master
+      with:
+        name: shp2mysql.exe
+        path: src/shp2mysql.exe
