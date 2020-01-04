@@ -34,8 +34,6 @@ src/Makefile
 missing
 compile
 config.h
-config.h.in
-config.h.in
 depcomp
 Makefile.in
 src/Makefile.in
@@ -45,7 +43,6 @@ stamp-h1
 config.guess
 config.sub
 config.rpath
-config.h.in
 m4/
 intl/
 macros/
