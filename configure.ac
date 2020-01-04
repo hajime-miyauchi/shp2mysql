@@ -27,7 +27,7 @@ AC_PROG_YACC
 # FIXME: Replace `main' with a function in `-lm':
 AC_CHECK_LIB([m], [main])
 # FIXME: Replace `main' with a function in `-lproj':
-AC_CHECK_LIB([proj], [main])
+# AC_CHECK_LIB([proj], [main])
 
 # Checks for header files.
 AC_FUNC_ALLOCA
