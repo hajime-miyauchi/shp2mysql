@@ -39,9 +39,9 @@ jobs:
       run: ./configure
     - name: make distcheck
       run: make distcheck
-    - name: make distdir
-      run: make distdir
+    - name: make dist-source
+      run: make dist-source
     - uses: actions/upload-artifact@master
       with:
         name: shp2mysql-source
-        path: shp2mysql-*
+        path: shp2mysql-source
