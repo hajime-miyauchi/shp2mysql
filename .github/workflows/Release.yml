@@ -23,7 +23,7 @@ jobs:
         cp src/shp2mysql.exe shp2mysql-win-64
         cp /usr/x86_64-w64-mingw32/bin/iconv.dll shp2mysql-win-64
         cp LICENSE shp2mysql-win-64
-        cp README.md
+        cp README.md shp2mysql-win-64
     - uses: actions/upload-artifact@master
       with:
         name: shp2mysql-win-64
