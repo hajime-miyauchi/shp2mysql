@@ -25,6 +25,7 @@ configure
 config.log
 .DS_Store
 autoscan.log
+config.h.in
 configure.scan
 config.status
 install-sh
