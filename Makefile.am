@@ -8,3 +8,10 @@ noinst_HEADERS=postgis_config.h \
 EXTRA_DIST = \
     LICENSE \
     README.md
+
+echo-version:
+	@echo $(VERSION)
+
+tag:
+	cd $(top_srcdir) && git tag v$(VERSION) -a -m 'shp2mysql $(VERSION)'
+
