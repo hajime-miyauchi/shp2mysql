@@ -53,6 +53,9 @@ AC_FUNC_REALLOC
 AC_FUNC_STRTOD
 AC_CHECK_FUNCS([floor memmove memset modf pow rint setlocale sqrt strcasecmp strchr strcspn strdup strerror strspn strstr strtol])
 
+export ac_cv_func_realloc_0_nonnull=yes
+export ac_cv_func_malloc_0_nonnull=yes
+
 AM_GNU_GETTEXT_VERSION([0.19.8])
 AM_ICONV
 
