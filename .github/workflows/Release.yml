@@ -3,10 +3,8 @@ name: Release
 on: [push]
 
 jobs:
-  build:
-
+  build-windows:
     runs-on: ubuntu-latest
-    
     steps:
     - uses: actions/checkout@v1
     - name: install Dependences
@@ -28,3 +26,22 @@ jobs:
       with:
         name: shp2mysql-win-64
         path: shp2mysql-win-64
+
+  build-source:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: install requirements
+      run: sudo apt install gettext autopoint
+    - name: autogen
+      run: ./autogen.sh
+    - name: configure
+      run: ./configure
+    - name: make distcheck
+      run: make distcheck
+    - name: make distdir
+      run: make distdir
+    - uses: actions/upload-artifact@master
+      with:
+        name: shp2mysql-source
+        path: shp2mysql-*
