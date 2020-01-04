@@ -15,3 +15,5 @@ echo-version:
 tag:
 	cd $(top_srcdir) && git tag v$(VERSION) -a -m 'shp2mysql $(VERSION)'
 
+dist-source: distdir
+	mv $(distdir) shp2mysql-source
