@@ -48,8 +48,8 @@ AC_TYPE_UINT8_T
 
 # Checks for library functions.
 AC_FUNC_FSEEKO
-AC_FUNC_MALLOC
-AC_FUNC_REALLOC
+AC_CHECK_FUNCS([malloc])
+AC_CHECK_FUNCS([realloc])
 AC_FUNC_STRTOD
 AC_CHECK_FUNCS([floor memmove memset modf pow rint setlocale sqrt strcasecmp strchr strcspn strdup strerror strspn strstr strtol])
 
