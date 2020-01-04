@@ -19,12 +19,12 @@ jobs:
       run: make
     - name: Package
       run: |
-        mkdir -p shp2mysql/
-        cp src/shp2mysql.exe shp2mysql/
-        cp /usr/x86_64-w64-mingw32/bin/iconv.dll shp2mysql/
-        cp LICENSE shp2mysql/
-        zip -r shp2mysql-win-64.zip shp2mysql/
+        mkdir -p shp2mysql-win-64
+        cp src/shp2mysql.exe shp2mysql-win-64
+        cp /usr/x86_64-w64-mingw32/bin/iconv.dll shp2mysql-win-64
+        cp LICENSE shp2mysql-win-64
+        cp README.md
     - uses: actions/upload-artifact@master
       with:
-        name: shp2mysql-win-64.zip
-        path: shp2mysql-win-64.zip
+        name: shp2mysql-win-64
+        path: shp2mysql-win-64
