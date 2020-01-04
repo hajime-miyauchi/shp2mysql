@@ -3,6 +3,10 @@ licensing.
 
 shp2mysql自体のライセンスはGPL2.0に基づきます。詳細はCOPYINGファイルを参照して下さい。
 
+shp2mysql https://github.com/hajime-miyauchi/shp2mysql
+
+---------------------------------------------------------------------------
+
 PostGIS Licensing
 ==================
 
