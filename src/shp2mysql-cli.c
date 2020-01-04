@@ -13,6 +13,7 @@
  **********************************************************************/
 
 
+#include "../config.h"
 #include "shp2mysql-core.h"
 
 #ifndef SRID_UNKNOWN
@@ -22,10 +23,8 @@
 static void
 usage()
 {
-    /* TODO:
-	printf(_( "RELEASE: %s (r%d)\n" ), POSTGIS_LIB_VERSION, POSTGIS_SVN_REVISION);
-    */
-	printf(_( "USAGE: shp2mysql [<options>] <shapefile> [[<table>]\n"
+	printf(_( "RELEASE: %s\n" ), PACKAGE_VERSION);
+	printf(_( "USAGE: shp2mysql [<options>] <shapefile> [<table>]\n"
 	          "OPTIONS:\n" ));
 #ifdef SHP2MYSQL
 	printf(_( "  -s <srid> Set the SRID field. Defaults to %d.\n"),
