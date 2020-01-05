@@ -7,8 +7,52 @@ on:
 name: Upload Release Asset
 
 jobs:
+  build-windows:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: install Dependences
+      run: sudo apt install -y mingw-w64 win-iconv-mingw-w64-dev autopoint
+    - name: autogen
+      run: ./autogen.sh
+    - name: configure 
+      run: ./configure --host=x86_64-w64-mingw32 --enable-static --disable-shared LDFLAGS=-static
+    - name: make
+      run: make
+    - name: Package
+      run: |
+        mkdir -p shp2mysql-win-64
+        cp src/shp2mysql.exe shp2mysql-win-64
+        cp /usr/x86_64-w64-mingw32/bin/iconv.dll shp2mysql-win-64
+        cp LICENSE shp2mysql-win-64
+        cp README.md shp2mysql-win-64
+    - uses: actions/upload-artifact@master
+      with:
+        name: shp2mysql-win-64
+        path: shp2mysql-win-64
+
+  build-source:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: install requirements
+      run: sudo apt install gettext autopoint
+    - name: autogen
+      run: ./autogen.sh
+    - name: configure
+      run: ./configure
+    - name: make distcheck
+      run: make distcheck
+    - name: make dist-source
+      run: make dist-source
+    - uses: actions/upload-artifact@master
+      with:
+        name: shp2mysql-source
+        path: shp2mysql-source
+
   build:
     name: Upload Release Asset
+    needs: [build-windows, build-source]
     runs-on: ubuntu-latest
     steps:
       - name: Create Release
