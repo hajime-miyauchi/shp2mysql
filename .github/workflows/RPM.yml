@@ -1,0 +1,13 @@
+name: Package
+
+on: [push]
+
+jobs:
+  build-source:
+    runs-on: ubuntu-latest
+    container: centos:7
+    steps:
+    - uses: actions/checkout@v1
+    - name: Install dependencies
+      run: yum -y install createrepo git rpm-build yum-utils
+      
