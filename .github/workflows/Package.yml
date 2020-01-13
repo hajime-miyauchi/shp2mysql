@@ -33,13 +33,15 @@ jobs:
     - uses: actions/checkout@v1
     - name: install Dependences
       run: |
-        brew update
         brew install autoconf automake gettext libtool libiconv pkg-config
-    - name: Run a one-line script
+    - name: Run autoreconf
       run: |
         PATH=${PATH}:$(brew --prefix gettext)/bin:/usr/local/bin
         ./autogen.sh
+    - name: Run configure
+      run: |
         ./configure --enable-static --disable-shared LDFLAGS=-static
+    - name: Run Make
         make
     - name: Package
       run: |
