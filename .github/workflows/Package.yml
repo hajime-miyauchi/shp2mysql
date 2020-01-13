@@ -36,7 +36,9 @@ jobs:
         brew update
         brew install autoconf automake gettext libtool libiconv
     - name: Run a one-line script
-      run: ./autogen.sh && ./configure --enable-static --disable-shared LDFLAGS=-static && make
+      run: |
+        PATH=${PATH}:$(brew --prefix gettext)/bin
+        ./autogen.sh && ./configure --enable-static --disable-shared LDFLAGS=-static && make
     - name: Package
       run: |
         mkdir -p shp2mysql-darwin
