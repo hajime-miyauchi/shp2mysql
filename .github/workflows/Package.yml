@@ -28,7 +28,7 @@ jobs:
         path: shp2mysql-win-64
 
   build-macOS:
-    runs-on: macos
+    runs-on: macos-latest
     steps:
     - uses: actions/checkout@v1
     - name: install Dependences
