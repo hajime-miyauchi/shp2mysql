@@ -40,7 +40,7 @@ jobs:
         ./autogen.sh
     - name: Run configure
       run: |
-        ./configure --enable-static --disable-shared LDFLAGS=-static
+        ./configure --enable-static --disable-shared
     - name: Run Make
       run: |
         make
