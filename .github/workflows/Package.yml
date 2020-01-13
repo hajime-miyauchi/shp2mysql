@@ -34,7 +34,7 @@ jobs:
     - name: install Dependences
       run: |
         brew update
-        brew install autoconf automake gettext libtool libiconv
+        brew install autoconf automake gettext libtool libiconv pkg-config gcc
     - name: Run a one-line script
       run: |
         PATH=${PATH}:$(brew --prefix gettext)/bin
