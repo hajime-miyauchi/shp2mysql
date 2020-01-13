@@ -37,11 +37,11 @@ jobs:
         brew install autoconf automake gettext libtool libiconv pkg-config gcc
     - name: Run a one-line script
       run: |
-        PATH=${PATH}:$(brew --prefix gettext)/bin
+        PATH=${PATH}:$(brew --prefix gettext)/bin:/usr/local/bin
         ./autogen.sh && ./configure --enable-static --disable-shared LDFLAGS=-static && make
       env:
-        CC: gcc-9
-        CXX: g++-9
+        CC: clang
+        CXX: clang++
     - name: Package
       run: |
         mkdir -p shp2mysql-darwin
