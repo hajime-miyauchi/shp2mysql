@@ -50,10 +50,11 @@ jobs:
         cp src/shp2mysql shp2mysql-darwin
         cp LICENSE shp2mysql-darwin
         cp README.md shp2mysql-darwin
+        tar cvfz shp2mysql-darwin.tar.gz shp2mysql-darwin
     - uses: actions/upload-artifact@master
       with:
         name: shp2mysql-darwin
-        path: shp2mysql-darwin
+        path: shp2mysql-darwin.tar.gz
     
   
   build-linux:
@@ -74,10 +75,11 @@ jobs:
         cp src/shp2mysql shp2mysql-linux
         cp LICENSE shp2mysql-linux
         cp README.md shp2mysql-linux
+        tar cvfz shp2mysql-linux.tar.gz shp2mysql-linux
     - uses: actions/upload-artifact@master
       with:
         name: shp2mysql-linux
-        path: shp2mysql-linux
+        path: shp2mysql-linux.tar.gz
   
   build-source:
     runs-on: ubuntu-latest
