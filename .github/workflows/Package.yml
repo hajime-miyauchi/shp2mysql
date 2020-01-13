@@ -31,6 +31,10 @@ jobs:
     runs-on: macos
     steps:
     - uses: actions/checkout@v1
+    - name: install Dependences
+      run: |
+        brew update
+        brew install autoconf automake gettext libtool libiconv
     - name: Run a one-line script
       run: ./autogen.sh && ./configure --enable-static --disable-shared LDFLAGS=-static && make
     - name: Package
