@@ -42,6 +42,7 @@ jobs:
       run: |
         ./configure --enable-static --disable-shared LDFLAGS=-static
     - name: Run Make
+    - run: |
         make
     - name: Package
       run: |
