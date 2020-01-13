@@ -27,6 +27,47 @@ jobs:
         name: shp2mysql-win-64
         path: shp2mysql-win-64
 
+  build-macOS:
+    runs-on: macos
+    steps:
+    - uses: actions/checkout@v1
+    - name: Run a one-line script
+      run: ./autogen.sh && ./configure --enable-static --disable-shared LDFLAGS=-static && make
+    - name: Package
+      run: |
+        mkdir -p shp2mysql-darwin
+        cp src/shp2mysql shp2mysql-darwin
+        cp LICENSE shp2mysql-darwin
+        cp README.md shp2mysql-darwin
+    - uses: actions/upload-artifact@master
+      with:
+        name: shp2mysql-darwin
+        path: shp2mysql-darwin
+    
+  
+  build-linux:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: install requirements
+      run: sudo apt install gettext autopoint
+    - name: autogen
+      run: ./autogen.sh
+    - name: configure
+      run: ./configure --enable-static --disable-shared LDFLAGS=-static 
+    - name: make
+      run: make
+    - name: Package
+      run: |
+        mkdir -p shp2mysql-linux
+        cp src/shp2mysql shp2mysql-linux
+        cp LICENSE shp2mysql-linux
+        cp README.md shp2mysql-linux
+    - uses: actions/upload-artifact@master
+      with:
+        name: shp2mysql-linux
+        path: shp2mysql-linux
+  
   build-source:
     runs-on: ubuntu-latest
     steps:
