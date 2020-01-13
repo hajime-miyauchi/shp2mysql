@@ -34,11 +34,13 @@ jobs:
     - name: install Dependences
       run: |
         brew update
-        brew install autoconf automake gettext libtool libiconv pkg-config gcc
+        brew install autoconf automake gettext libtool libiconv pkg-config
     - name: Run a one-line script
       run: |
         PATH=${PATH}:$(brew --prefix gettext)/bin:/usr/local/bin
-        ./autogen.sh && ./configure --enable-static --disable-shared LDFLAGS=-static && make
+        ./autogen.sh
+        ./configure --enable-static --disable-shared LDFLAGS=-static
+        make
     - name: Package
       run: |
         mkdir -p shp2mysql-darwin
