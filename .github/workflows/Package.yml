@@ -55,7 +55,19 @@ jobs:
       with:
         name: shp2mysql-darwin
         path: shp2mysql-darwin.tar.gz
-    
+  
+  test-macOS:
+    needs: build-macOS
+    runs-on: macos-latest
+    steps:
+      - uses: actions/download-artifact@v1
+        with: 
+          name: shp2mysql-darwin
+      - name: Unarchive
+        run: |
+          cd shp2mysql-darwin
+          tar xvfz shp2mysql-darwin.tar.gz
+          shp2mysql-darwin/shp2mysql
   
   build-linux:
     runs-on: ubuntu-latest
