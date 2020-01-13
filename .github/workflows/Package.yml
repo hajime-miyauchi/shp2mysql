@@ -39,6 +39,9 @@ jobs:
       run: |
         PATH=${PATH}:$(brew --prefix gettext)/bin
         ./autogen.sh && ./configure --enable-static --disable-shared LDFLAGS=-static && make
+      env:
+        CC: gcc-9
+        CXX: g++-9
     - name: Package
       run: |
         mkdir -p shp2mysql-darwin
